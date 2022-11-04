@@ -3,7 +3,6 @@ package com.crud.primeirocrud.services;
 import com.crud.primeirocrud.dto.ClientDTO;
 import com.crud.primeirocrud.entities.Client;
 import com.crud.primeirocrud.repositories.ClientRepository;
-import com.crud.primeirocrud.services.exceptions.ResouceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,5 +30,20 @@ public class ClientService {
         Optional<Client> obj = clientRepository.findById(id);
         Client entity = obj.orElseThrow(() -> new EntityNotFoundException("Enitity not found"));
         return new ClientDTO(entity);
+    }
+    @Transactional
+    public ClientDTO insert(ClientDTO dto) {
+        Client entity = new Client();
+        copyToEntity(dto, entity);
+        entity = clientRepository.save(entity);
+        return new ClientDTO(entity);
+    }
+
+    private void copyToEntity(ClientDTO dto, Client entity){
+        entity.setName(dto.getName());
+        entity.setCpf(dto.getCpf());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setIncome(dto.getIncome());
+        entity.setChildren(dto.getChildren());
     }
 }
