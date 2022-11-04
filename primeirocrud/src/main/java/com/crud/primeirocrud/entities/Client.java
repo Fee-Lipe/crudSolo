@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -17,8 +16,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Client implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = -5787967548946411186L;
+    private static final Long serialVersionUID = -5787967548946411186L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +26,7 @@ public class Client implements Serializable {
     private Double income;
 
 
-    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant birthDate;
     private Integer children;
 

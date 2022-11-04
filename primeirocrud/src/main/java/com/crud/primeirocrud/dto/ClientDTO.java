@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -14,8 +13,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class ClientDTO implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 6688149483532581114L;
+    private static final Long serialVersionUID = 6688149483532581114L;
 
     private Long id;
     private String name;

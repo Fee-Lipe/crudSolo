@@ -27,7 +27,6 @@ public class ClientService {
         Page<Client> list = clientRepository.findAll(pageRequest);
         return list.map(x -> new ClientDTO(x));
     }
-
     @Transactional(readOnly = true)
     public ClientDTO findById(Long id) {
         Optional<Client> obj = clientRepository.findById(id);
