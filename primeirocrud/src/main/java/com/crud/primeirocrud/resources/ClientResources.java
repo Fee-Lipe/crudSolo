@@ -3,12 +3,14 @@ package com.crud.primeirocrud.resources;
 import com.crud.primeirocrud.dto.ClientDTO;
 import com.crud.primeirocrud.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/client")
@@ -18,8 +20,14 @@ public class ClientResources {
     private ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<List<ClientDTO>> findAll(){
-        List<ClientDTO> list = clientService.findAll();
+    public ResponseEntity<Page<ClientDTO>> findAll(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "6") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "DESC") String direction
+    ){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Page<ClientDTO> list = clientService.findAll(pageRequest);
         return ResponseEntity.ok().body(list);
     }
 
