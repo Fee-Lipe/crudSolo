@@ -1,7 +1,6 @@
 package com.crud.primeirocrud.resources;
 
 import com.crud.primeirocrud.dto.ClientDTO;
-import com.crud.primeirocrud.entities.Client;
 import com.crud.primeirocrud.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,5 +35,11 @@ public class ClientResources {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto){
+        dto = clientService.update(id, dto);
+        return ResponseEntity.ok().body(dto);
     }
 }
